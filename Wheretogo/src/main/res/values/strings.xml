@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">어디가지</string>
+    <string name="str_done">완료</string>
+    <string name="title_activity_main2">내 주변 가게</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="kakao_app_key"> 9d430b7d8ca31d3aac4c01a41783a7bd</string>
+    <string name="kakao_rest_API_key">5a864b3b966b1a002cd608539159683c</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_pop">PopActivit</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+</resources>
