@@ -2,7 +2,6 @@ package com.a.android.wheretogo.search;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.a.android.wheretogo.item.Item;
 import com.a.android.wheretogo.item.Item2;
@@ -66,46 +65,34 @@ public class CategorySearcher {
 	private class SearchTask extends AsyncTask<String, Void, Void> {
 		@Override
 		protected Void doInBackground(String... urls) {
-			Log.v("dgdg","여기1");
 			String url = urls[0];
-			Log.v("url","url은?"+urls[0]);
 			Map<String, String> header = new HashMap<String, String>();
 			header.put(HEADER_NAME_X_APPID, appId);
 			header.put(HEADER_NAME_X_PLATFORM, HEADER_VALUE_X_PLATFORM_ANDROID);
 			//String json = fetchData("https://dapi.kakao.com/v2/local/search/category.json?category_group_code=FD6&x=127.062528&y=37.656441&radius=500"+"&page=1",header);
-			Log.v("dgdg","여기2");
-			Log.v("asdfasg","1111url="+url);
 			String json = fetchData(url, header);
 
 			//String json2 = fetchData("https://dapi.kakao.com/v2/local/search/category.json?category_group_code=FD6&x=127.062528&y=37.656441&radius=500&page=2",header);
 
 			url = url.replace("page=1","page=2");
 			String json2 = fetchData(url, header);
-			Log.v("asdfasg","2222url="+url);
 
 			url = url.replace("page=2","page=3");
 			String json3 = fetchData(url, header);
-			Log.v("asdfasg","3333url="+url);
 
 			// String json3 = fetchData("https://dapi.kakao.com/v2/local/search/category.json?category_group_code=FD6&x=127.062528&y=37.656441&radius=500&page=3",header);
 			url = url.replace("page=3","page=4");
 			String json4 = fetchData(url,header);
-			Log.v("asdfasg","4444url="+url);
 			// String json4 = fetchData("https://dapi.kakao.com/v2/local/search/category.json?category_group_code=FD6&x=127.062528&y=37.656441&radius=500&page=4",header);
 
-			Log.v("dgdg","여기3");
 			List<Item> itemList = parse(json);
-			Log.v("dgdg","여기4");
 			List<Item2> itemList5 = parse2(json2);
 			List<Item3> itemList6 = parse3(json3);
 			List<Item> itemList7 = parse4(json4);
-			Log.v("dgdg","여기5");
 			if (onCategorySearchListener != null) {
 				if (itemList == null) {
-					Log.v("dgdg","여기6fail");
 					onCategorySearchListener.onFail();
 				} else {
-					Log.v("dgdg","여기7success");
 					onCategorySearchListener.onSuccess(itemList, itemList5, itemList6);
 				}
 			}
@@ -146,7 +133,6 @@ public class CategorySearcher {
 	private String fetchData(String urlString, Map<String, String> header) {
 		try {
 			URL url = new URL(urlString);
-			Log.v("asdg","패치데이타의 url="+url);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setReadTimeout(4000 /* milliseconds */);
 			conn.setConnectTimeout(7000 /* milliseconds */);
@@ -165,7 +151,6 @@ public class CategorySearcher {
 			s.useDelimiter("\\A");
 			String data = s.hasNext() ? s.next() : "";
 			is.close();
-			Log.v("asdg","데이따"+data);
 			return data;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -174,19 +159,16 @@ public class CategorySearcher {
 	}
     
 	private List<Item> parse(String jsonString) {
-		Log.v("dgdg","여기여기펄스");
-		Log.v("dgdg","첫번째제이슨"+jsonString);
+
 					List<Item> itemList = new ArrayList<Item>();
 					try {
 						JSONObject reader = new JSONObject(jsonString);
-						Log.v("dgdg","리더"+reader);
 						//JSONObject documents = reader.getJSONObject("meta");
 						JSONArray objects = reader.getJSONArray("documents");
 						for (int i = 0; i < objects.length(); i++) {
 							JSONObject object = objects.getJSONObject(i);
 							Item item = new Item();
 							item.title = object.getString("place_name");
-							Log.v("dgdg","음식점("+i+")번째:"+item.title);
 							item.address = object.getString("address_name");
 							item.newAddress = object.getString("road_address_name");
 							//item.zipcode = object.getString("category_group_code");
@@ -210,7 +192,6 @@ public class CategorySearcher {
 	}
 
 	private List<Item2> parse2(String jsonString) {
-		Log.v("dgdg","두번째제이슨"+jsonString);
 		List<Item2> itemList = new ArrayList<Item2>();
 		try {
 			JSONObject reader = new JSONObject(jsonString);
@@ -220,7 +201,6 @@ public class CategorySearcher {
 				JSONObject object = objects.getJSONObject(j);
 				Item2 item2 = new Item2();
 				item2.title = object.getString("place_name");
-				Log.v("dgdg","2.음식점("+j+")번째:"+ item2.title);
 				item2.address = object.getString("address_name");
 				item2.newAddress = object.getString("road_address_name");
 				//item.zipcode = object.getString("category_group_code");
@@ -244,7 +224,6 @@ public class CategorySearcher {
 
 	private List<Item3> parse3(String jsonString) {
 
-		Log.v("dgdg","세번째제이슨"+jsonString);
 		List<Item3> itemList = new ArrayList<Item3>();
 		try {
 			JSONObject reader = new JSONObject(jsonString);
@@ -254,7 +233,6 @@ public class CategorySearcher {
 				JSONObject object = objects.getJSONObject(k);
 				Item3 item3 = new Item3();
 				item3.title = object.getString("place_name");
-				Log.v("dgdg","3.음식점("+k+")번째:"+ item3.title);
 				item3.address = object.getString("address_name");
 				item3.newAddress = object.getString("road_address_name");
 				//item.zipcode = object.getString("category_group_code");
@@ -277,7 +255,6 @@ public class CategorySearcher {
 	}
 
 	private List<Item> parse4(String jsonString) {
-		Log.v("dgdg","네번째제이슨"+jsonString);
 		List<Item> itemList = new ArrayList<Item>();
 		try {
 			JSONObject reader = new JSONObject(jsonString);
@@ -287,7 +264,6 @@ public class CategorySearcher {
 				JSONObject object = objects.getJSONObject(a);
 				Item item4 = new Item();
 				item4.title = object.getString("place_name");
-				Log.v("dgdg","4.음식점("+a+")번째:"+ item4.title);
 				item4.address = object.getString("address_name");
 				item4.newAddress = object.getString("road_address_name");
 				//item.zipcode = object.getString("category_group_code");

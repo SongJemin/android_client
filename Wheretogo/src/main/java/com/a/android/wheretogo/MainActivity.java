@@ -229,12 +229,10 @@ public class MainActivity extends AppCompatActivity
                     myMapView.removeAllPOIItems(); // 기존 검색 결과 삭제
                     showResult(itemList, itemList5, itemList6); // 검색 결과 보여줌
                 }
-
                 @Override
                 public void onFail() {
                     showToast("API Fail");
                 }
-
             });
             flag = !flag;
         }
@@ -250,6 +248,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onCurrentLocationUpdateFailed(MapView mapView) {
+
 
     }
 
@@ -288,7 +287,6 @@ public class MainActivity extends AppCompatActivity
             }
             //나의 위치를 한번만 가져오기 위해
             locationManager.removeUpdates(locationListener);
-
             //위도 경도
             mLatitude = location.getLatitude();   //위도
             Log.v("asdf", "기기자체lat=" + mLatitude);
@@ -453,7 +451,7 @@ public class MainActivity extends AppCompatActivity
 
         //레이아웃 인플레이션을 통해 부분 화면으로 추가한다
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.sub_layout, container, true);
+        //inflater.inflate(R.layout.sub_layout, container, true);
 
     }
 
@@ -505,7 +503,6 @@ public class MainActivity extends AppCompatActivity
 
             MapPOIItem poiItem3 = new MapPOIItem();
             poiItem3.setItemName(item3.title);
-            Log.v("asdf", "타이틀6:" + item3.title);
             poiItem3.setTag(i);
             MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(item3.latitude, item3.longitude);
             poiItem3.setMapPoint(mapPoint);
@@ -575,8 +572,6 @@ public class MainActivity extends AppCompatActivity
         while (it.hasNext()) {
             Map.Entry<Integer, Item> e = (Map.Entry<Integer, Item>) it.next();
 
-            Log.v("asdfg","택아이탬맵 이름 = "+e.getKey()+"정보 = "+e.getValue());
-
         }
 
         Snackbar snackbar;
@@ -593,7 +588,7 @@ public class MainActivity extends AppCompatActivity
             //sb.append("").append(item.category).append(" | ");
            // sb.append("phone=").append(item.phone).append("\n");
             //sb.append("newAddress=").append(item.newAddress).append("\n");
-            Intent popIntent = new Intent(MainActivity.this,PopActivity2.class);
+            Intent popIntent = new Intent(MainActivity.this,PopActivity.class);
             popIntent.putExtra("title",item.title);
             popIntent.putExtra("category",item.category);
             popIntent.putExtra("phone",item.phone);
@@ -601,7 +596,6 @@ public class MainActivity extends AppCompatActivity
             popIntent.putExtra("distance",item.distance);
             popIntent.putExtra("place_url",item.place_url);
 
-            Log.v("asdf","처음폰넘버="+item.phone);
            MainActivity.this.startActivity(popIntent);
 
 
@@ -612,7 +606,7 @@ public class MainActivity extends AppCompatActivity
             //sb.append("").append(item2.category).append(" | ");
            // sb.append("phone=").append(item2.phone).append("\n");
             //sb.append("newAddress=").append(item2.newAddress).append("\n");
-            Intent popIntent = new Intent(MainActivity.this,PopActivity2.class);
+            Intent popIntent = new Intent(MainActivity.this,PopActivity.class);
             popIntent.putExtra("title",item2.title);
             popIntent.putExtra("category",item2.category);
             popIntent.putExtra("phone",item2.phone);
@@ -620,7 +614,6 @@ public class MainActivity extends AppCompatActivity
             popIntent.putExtra("distance",item2.distance);
             popIntent.putExtra("place_url",item2.place_url);
 
-            Log.v("asdf","처음폰넘버="+item2.phone);
             MainActivity.this.startActivity(popIntent);
 
 
@@ -631,7 +624,7 @@ public class MainActivity extends AppCompatActivity
            //sb.append("").append(item3.category).append(" | ");
             //sb.append("phone=").append(item3.phone).append("\n");
            //sb.append("newAddress=").append(item3.newAddress).append("\n");
-            Intent popIntent = new Intent(MainActivity.this,PopActivity2.class);
+            Intent popIntent = new Intent(MainActivity.this,PopActivity.class);
             popIntent.putExtra("title",item3.title);
             popIntent.putExtra("category",item3.category);
             popIntent.putExtra("phone",item3.phone);
@@ -639,7 +632,6 @@ public class MainActivity extends AppCompatActivity
             popIntent.putExtra("distance",item3.distance);
             popIntent.putExtra("place_url",item3.place_url);
 
-            Log.v("asdf","처음폰넘버="+item3.phone);
             MainActivity.this.startActivity(popIntent);
 
 
@@ -651,7 +643,7 @@ public class MainActivity extends AppCompatActivity
             //sb.append("").append(item5.category).append(" | ");
            // sb.append("phone=").append(item5.phone).append("\n");
             //sb.append("newAddress=").append(item5.newAddress).append("\n");
-            Intent popIntent = new Intent(MainActivity.this,PopActivity2.class);
+            Intent popIntent = new Intent(MainActivity.this,PopActivity.class);
             popIntent.putExtra("title",item5.title);
             popIntent.putExtra("category",item5.category);
             popIntent.putExtra("phone",item5.phone);
@@ -660,13 +652,7 @@ public class MainActivity extends AppCompatActivity
             popIntent.putExtra("place_url",item5.place_url);
             MainActivity.this.startActivity(popIntent);
 
-
         }
-
-            Log.v("asdf","가게명 = "+item.title+" = "+mapPOIItem.getTag());
-
-
-
 
         //sb.append("address=").append(item.address).append("\n");
         //sb.append("imageUrl=").append(item.imageUrl).append("\n");
@@ -690,9 +676,6 @@ public class MainActivity extends AppCompatActivity
         View snackView = snackbar.getView();
         snackView.setBackgroundColor(Color.parseColor("#FFFFFF"));
         snackbar.show();
-
-
-
 
        //Toast.makeText(this, sb.toString(), Toast.LENGTH_SHORT).show();
     }

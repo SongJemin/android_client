@@ -2,7 +2,6 @@ package com.a.android.wheretogo.search;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.a.android.wheretogo.item.Item5;
 
@@ -65,7 +64,6 @@ public class keywordSearcher {
 		@Override
 		protected Void doInBackground(String... urls) {
 			String url = urls[0];
-			Log.v("url","url은?"+urls[0]);
 			Map<String, String> header = new HashMap<String, String>();
 			header.put(HEADER_NAME_X_APPID, appId);
 			header.put(HEADER_NAME_X_PLATFORM, HEADER_VALUE_X_PLATFORM_ANDROID);
@@ -74,13 +72,10 @@ public class keywordSearcher {
 			String json8 = fetchData(url,header);
 
 			List<Item5> itemList8 = parse8(json8);
-			Log.v("dgdg","여기5");
 			if (onKeywordSearchListener != null) {
 				if (itemList8 == null) {
-					Log.v("dgdg","여기6fail");
 					onKeywordSearchListener.onFail();
 				} else {
-					Log.v("dgdg","여기7success");
 					onKeywordSearchListener.onSuccess(itemList8);
 				}
 			}
@@ -104,7 +99,6 @@ public class keywordSearcher {
 
 			searchTask = new SearchTask();
 			searchTask.execute(url);
-			Log.v("ee","페이지2"+page2);
 
 
     }
@@ -125,7 +119,6 @@ public class keywordSearcher {
 	private String fetchData(String urlString, Map<String, String> header) {
 		try {
 			URL url = new URL(urlString);
-			Log.v("asdg","패치데이타의 url="+url);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setReadTimeout(4000 /* milliseconds */);
 			conn.setConnectTimeout(7000 /* milliseconds */);
@@ -144,7 +137,6 @@ public class keywordSearcher {
 			s.useDelimiter("\\A");
 			String data = s.hasNext() ? s.next() : "";
 			is.close();
-			Log.v("asdg","데이따"+data);
 			return data;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -153,19 +145,15 @@ public class keywordSearcher {
 	}
     
 	private List<Item5> parse8(String jsonString) {
-		Log.v("dgdg","여기여기펄스");
-		Log.v("dgdg","첫번째제이슨"+jsonString);
 					List<Item5> itemList8 = new ArrayList<Item5>();
 					try {
 						JSONObject reader = new JSONObject(jsonString);
-						Log.v("dgdg","리더"+reader);
 						//JSONObject documents = reader.getJSONObject("meta");
 						JSONArray objects = reader.getJSONArray("documents");
 						for (int i = 0; i < objects.length(); i++) {
 							JSONObject object = objects.getJSONObject(i);
 							Item5 item5 = new Item5();
 							item5.title = object.getString("place_name");
-							Log.v("dgdg","음식점("+i+")번째:"+ item5.title);
 							//item.imageUrl = object.getString("place_url");
 							item5.address = object.getString("address_name");
 							item5.newAddress = object.getString("road_address_name");

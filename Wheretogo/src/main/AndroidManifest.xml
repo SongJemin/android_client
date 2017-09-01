@@ -37,14 +37,7 @@
             android:name=".PopActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.DayNight.Dialog.Alert" />
-        <activity
-            android:name=".PopOneFragment"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.DayNight.Dialog.Alert" />
 
-
-        <activity android:name=".PopActivity2"
-            android:theme="@style/Theme.Dialog"/>
 
     </application>
 
