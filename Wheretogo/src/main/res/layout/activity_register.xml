@@ -143,26 +143,26 @@
 
     <Button
         android:id="@+id/duplicate_id_btn"
-        android:layout_width="50dp"
-        android:layout_height="30dp"
+        android:layout_width="40dp"
+        android:layout_height="25dp"
         android:layout_marginBottom="0dp"
         android:layout_marginLeft="136dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="0dp"
-        android:text="중복 확인"
+        android:background="@drawable/img_eye_5e5e5e"
         app:layout_constraintLeft_toRightOf="@+id/emailView"
         app:layout_constraintTop_toBottomOf="@+id/markView"
         app:layout_constraintRight_toRightOf="@+id/emailText" />
 
     <Button
         android:id="@+id/duplicate_name_btn"
-        android:layout_width="50dp"
-        android:layout_height="30dp"
+        android:layout_width="40dp"
+        android:layout_height="25dp"
         android:layout_marginBottom="0dp"
         android:layout_marginLeft="136dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="5dp"
-        android:text="중복 확인"
+        android:background="@drawable/img_eye_5e5e5e"
         app:layout_constraintLeft_toRightOf="@+id/emailView"
         app:layout_constraintTop_toBottomOf="@+id/emailText"
         app:layout_constraintRight_toRightOf="@+id/emailText" />
