@@ -35,6 +35,8 @@ public class RegisterActivity extends AppCompatActivity {
         markView.setTypeface(typeFace);
         Button registerButton = (Button) findViewById(R.id.registerButton);
 
+
+
         registerButton.setOnClickListener(new View.OnClickListener(){
 
             @Override

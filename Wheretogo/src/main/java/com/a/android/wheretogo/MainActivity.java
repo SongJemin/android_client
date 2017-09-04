@@ -30,6 +30,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -124,6 +125,17 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View nav_header_view = navigationView.getHeaderView(0);
+        Button change_passwd_btn = (Button) nav_header_view.findViewById(R.id.changeButton);
+
+        change_passwd_btn.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                Intent changeIntent = new Intent(MainActivity.this, PasswdChangeActivity.class);
+                startActivity(changeIntent);
+            }
+        });
 
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -405,16 +417,15 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_nearborhood_store) {
+
             // Handle the camera action
-        } else if (id == R.id.nav_my_info) {
+
 
         } else if (id == R.id.nav_dev_setting) {
+            Intent popIntent = new Intent(MainActivity.this,MainActivity.class);
+            MainActivity.this.startActivity(popIntent);
 
         } else if (id == R.id.nav_id_logout) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
 
         }
 

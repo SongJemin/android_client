@@ -29,6 +29,9 @@
 
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
+        <activity android:name=".PasswdChangeActivity" />
+        <activity android:name=".MyInformActivity" />
+        <activity android:name=".SettingActivity" />
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main2"
@@ -37,8 +40,9 @@
             android:name=".PopActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.DayNight.Dialog.Alert" />
-
-
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"></activity>
     </application>
 
 </manifest>
