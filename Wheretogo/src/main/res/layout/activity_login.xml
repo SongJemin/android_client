@@ -112,5 +112,15 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp" />
 
+    <Button
+        android:id="@+id/real_passwd_view"
+        android:layout_width="30dp"
+        android:layout_height="25dp"
+        android:layout_marginLeft="133dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/img_eye_ffffff"
+        app:layout_constraintLeft_toRightOf="@+id/passwordView"
+        app:layout_constraintTop_toBottomOf="@+id/emailText" />
+
 
 </android.support.constraint.ConstraintLayout>

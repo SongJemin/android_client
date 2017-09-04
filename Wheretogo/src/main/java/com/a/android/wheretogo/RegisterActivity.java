@@ -5,6 +5,8 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.PasswordTransformationMethod;
+import android.text.method.SingleLineTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +21,8 @@ import org.json.JSONObject;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    private boolean flag = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,15 +31,46 @@ public class RegisterActivity extends AppCompatActivity {
         TextView markView = (TextView) findViewById(R.id.markView);
         final EditText emailText = (EditText) findViewById(R.id.emailText);
         final EditText passwordText = (EditText) findViewById(R.id.passwordText);
+        final EditText passwordConfirmText = (EditText) findViewById(R.id.passwordConfirmText);
         final EditText nameText = (EditText) findViewById(R.id.nameText);
         final EditText phoneText = (EditText) findViewById(R.id.phoneText);
+        Button realPasswdViewBtn = (Button) findViewById(R.id.real_passwd_btn);
+        Button realConfirmPasswdViewBtn = (Button) findViewById(R.id.real_passwd_confirm_btn);
 
 
         Typeface typeFace = Typeface.createFromAsset(getAssets(), "fonts/NotoSansCJKkr-Bold.otf");  //asset > fonts 폴더 내 폰트파일 적용
         markView.setTypeface(typeFace);
         Button registerButton = (Button) findViewById(R.id.registerButton);
 
+        realPasswdViewBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO: set visible of EditText
+                if (!flag) {
 
+                    passwordText.setTransformationMethod(SingleLineTransformationMethod.getInstance());
+                    flag = !flag;
+                } else {
+                    passwordText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    flag = !flag;
+                }
+            }
+        });
+
+        realConfirmPasswdViewBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO: set visible of EditText
+                if (!flag) {
+
+                    passwordConfirmText.setTransformationMethod(SingleLineTransformationMethod.getInstance());
+                    flag = !flag;
+                } else {
+                    passwordConfirmText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    flag = !flag;
+                }
+            }
+        });
 
         registerButton.setOnClickListener(new View.OnClickListener(){
 

@@ -162,7 +162,7 @@ public class keywordSearcher {
 							item5.category = object.getString("category_name");
 							item5.latitude = object.getDouble("y");
 							item5.longitude = object.getDouble("x");
-				item5.distance = object.getDouble("distance");
+				//item5.distance = object.getDouble("distance");
 				//item.direction = object.getString("direction");
 				item5.id = object.getString("id");
 

@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
+import android.text.method.PasswordTransformationMethod;
+import android.text.method.SingleLineTransformationMethod;
 import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +23,8 @@ import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private boolean flag = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +35,9 @@ public class LoginActivity extends AppCompatActivity {
         final EditText emailText = (EditText) findViewById(R.id.emailText);
         final EditText passwordText = (EditText) findViewById(R.id.passwordText);
         final Button loginButton = (Button) findViewById(R.id.loginButton);
+        Button realPasswdViewBtn = (Button) findViewById(R.id.real_passwd_view);
         TextView findPassword = (TextView) findViewById(R.id.findPasswordView);
+
         ImageView image=new ImageView(this);
         image.setImageResource(R.drawable.mark2);
 
@@ -41,6 +47,20 @@ public class LoginActivity extends AppCompatActivity {
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         findPassword.setText(content);
 
+        realPasswdViewBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO: set visible of EditText
+                if (!flag) {
+
+                    passwordText.setTransformationMethod(SingleLineTransformationMethod.getInstance());
+                    flag = !flag;
+                } else {
+                    passwordText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    flag = !flag;
+                }
+            }
+        });
 
         loginButton.setOnClickListener(new View.OnClickListener(){
 

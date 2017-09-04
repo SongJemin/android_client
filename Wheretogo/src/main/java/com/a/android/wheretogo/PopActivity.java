@@ -46,7 +46,7 @@ public class PopActivity extends AppCompatActivity implements View.OnClickListen
 
         int width = (int) (display.getWidth() * 0.8); //Display 사이즈의 70%
 
-        int height = (int) (display.getHeight() * 0.75);  //Display 사이즈의 90%
+        int height = (int) (display.getHeight() * 0.8);  //Display 사이즈의 90%
 
         getWindow().getAttributes().width = width;
 

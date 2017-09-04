@@ -4,11 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.a.android.wheretogo.PasswdChangeActivity">
+    tools:context="com.a.android.wheretogo.PasswdCheckActivity">
 
+
+    <Button
+        android:id="@+id/real_passwd_btn"
+        android:layout_width="30dp"
+        android:layout_height="25dp"
+        android:layout_marginLeft="297dp"
+        android:layout_marginTop="56dp"
+        android:background="@drawable/img_eye_5e5e5e"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/edit_pw_01"
+        android:id="@+id/check_pw_text"
         android:layout_width="320dp"
         android:layout_height="40dp"
         android:layout_marginLeft="8dp"
@@ -48,7 +58,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_pw_01"
+        app:layout_constraintTop_toBottomOf="@+id/check_pw_text"
         app:layout_constraintVertical_bias="0.878" />
 
 </android.support.constraint.ConstraintLayout>

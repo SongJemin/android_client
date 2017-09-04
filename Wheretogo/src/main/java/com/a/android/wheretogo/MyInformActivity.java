@@ -9,13 +9,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.PasswordTransformationMethod;
 import android.text.method.SingleLineTransformationMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 public class MyInformActivity extends AppCompatActivity {
-    private final String LOG_TAG = "Information2Activity";
     private boolean flag = false;
 
     @Override
@@ -35,11 +33,9 @@ public class MyInformActivity extends AppCompatActivity {
 
                     passWdEdit.setTransformationMethod(SingleLineTransformationMethod.getInstance());
                     flag = !flag;
-                    Log.e(LOG_TAG, "flag : " + flag);
                 } else {
                     passWdEdit.setTransformationMethod(PasswordTransformationMethod.getInstance());
                     flag = !flag;
-                    Log.e(LOG_TAG, "flag : " + flag);
                 }
             }
         });
