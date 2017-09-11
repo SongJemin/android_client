@@ -4,10 +4,13 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.a.android.wheretogo.retrofit.ApiClient;
 
 
 public class StartActivity extends AppCompatActivity {
@@ -20,10 +23,11 @@ public class StartActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        ApiClient.getInstance().create();
 
 
         super.onCreate(savedInstanceState);
+        Log.v("Asdfadsg","start");
         setContentView(R.layout.activity_start);
 
         ImageView image=new ImageView(this);

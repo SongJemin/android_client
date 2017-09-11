@@ -172,7 +172,7 @@
         app:layout_constraintTop_toBottomOf="@+id/phoneView" />
 
     <Button
-        android:id="@+id/registerButton"
+        android:id="@+id/registerBtn"
         android:layout_width="180dp"
         android:layout_height="30dp"
         android:background="@drawable/btn_sign_up"

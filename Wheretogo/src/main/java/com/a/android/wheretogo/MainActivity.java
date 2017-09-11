@@ -57,23 +57,6 @@ import java.util.Set;
 
 
 
-
-/*
- * Copyright 2016 NAVER Corp.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MapView.MapViewEventListener, MapView.POIItemEventListener, MapView.CurrentLocationEventListener {
 
@@ -249,9 +232,6 @@ public class MainActivity extends AppCompatActivity
             });
             flag = !flag;
         }
-
-        //drawRestaurentByMapCenter
-        //Log.i(LOG_TAG, String.format("MapView onCurrentLocationUpdate (%f,%f) accuracy (%f)", mapPointGeo.latitude, mapPointGeo.longitude, accuracyInMeters));
     }
 
     @Override
@@ -288,7 +268,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    //위치정보 구하기 리스너e
+    //위치정보 구하기 리스너
     LocationListener locationListener = new LocationListener() {
 
         @Override
@@ -599,10 +579,6 @@ public class MainActivity extends AppCompatActivity
         //ImageSpan is=new ImageSpan(this,R.drawable.green_circle);
         if(item.title==mapPOIItem.getItemName())
         {
-            //sb.append("").append(item.title).append("\n");
-            //sb.append("").append(item.category).append(" | ");
-           // sb.append("phone=").append(item.phone).append("\n");
-            //sb.append("newAddress=").append(item.newAddress).append("\n");
             Intent popIntent = new Intent(MainActivity.this,PopActivity.class);
             popIntent.putExtra("title",item.title);
             popIntent.putExtra("category",item.category);
@@ -617,10 +593,6 @@ public class MainActivity extends AppCompatActivity
         }
         else if(item2.title==mapPOIItem.getItemName())
         {
-           // sb.append("").append(item2.title).append("\n");
-            //sb.append("").append(item2.category).append(" | ");
-           // sb.append("phone=").append(item2.phone).append("\n");
-            //sb.append("newAddress=").append(item2.newAddress).append("\n");
             Intent popIntent = new Intent(MainActivity.this,PopActivity.class);
             popIntent.putExtra("title",item2.title);
             popIntent.putExtra("category",item2.category);
@@ -635,15 +607,11 @@ public class MainActivity extends AppCompatActivity
         }
         else if(item3.title==mapPOIItem.getItemName())
         {
-           //sb.append("").append(item3.title).append("\n");
-           //sb.append("").append(item3.category).append(" | ");
-            //sb.append("phone=").append(item3.phone).append("\n");
-           //sb.append("newAddress=").append(item3.newAddress).append("\n");
             Intent popIntent = new Intent(MainActivity.this,PopActivity.class);
             popIntent.putExtra("title",item3.title);
             popIntent.putExtra("category",item3.category);
             popIntent.putExtra("phone",item3.phone);
-           popIntent.putExtra("newAddress",item3.newAddress);
+            popIntent.putExtra("newAddress",item3.newAddress);
             popIntent.putExtra("distance",item3.distance);
             popIntent.putExtra("place_url",item3.place_url);
 
@@ -654,10 +622,6 @@ public class MainActivity extends AppCompatActivity
 
         else if(item5.title==mapPOIItem.getItemName())
         {
-           // sb.append("").append(item5.title).append("\n");
-            //sb.append("").append(item5.category).append(" | ");
-           // sb.append("phone=").append(item5.phone).append("\n");
-            //sb.append("newAddress=").append(item5.newAddress).append("\n");
             Intent popIntent = new Intent(MainActivity.this,PopActivity.class);
             popIntent.putExtra("title",item5.title);
             popIntent.putExtra("category",item5.category);
@@ -668,16 +632,6 @@ public class MainActivity extends AppCompatActivity
             MainActivity.this.startActivity(popIntent);
 
         }
-
-        //sb.append("address=").append(item.address).append("\n");
-        //sb.append("imageUrl=").append(item.imageUrl).append("\n");
-        // sb.append("zipcode=").append(item.zipcode).append("\n");
-
-
-        //sb.append("longitude=").append(item.longitude).append("\n");
-       // sb.append("latitude=").append(item.latitude).append("\n");
-        //sb.append("distance=").append(item.distance).append("\n");
-        //   sb.append("direction=").append(item.direction).append("\n");
 
 
         snackbar=Snackbar.make(mapView,sb.toString(),Snackbar.LENGTH_INDEFINITE).setAction("YES", new View.OnClickListener()
