@@ -19,20 +19,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="대표 정보" />
+            android:text="가게 정보" />
 
-        <Button
-            android:id="@+id/bt_tab2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="상세 정보" />
-        <Button
-            android:id="@+id/bt_tab3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="테이블" />
 
     </LinearLayout>
 

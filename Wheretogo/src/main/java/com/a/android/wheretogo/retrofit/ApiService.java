@@ -16,10 +16,14 @@ public interface ApiService {
             , @Body SignUpForm request
     );
 
-    //@POST("/beongae/api/{version}/user/signin")
-  //  Call<User> userSignIn(@Path("version") int version
-    //        , @Body UserSignInForm request
-    //);
+    @POST("/wheretogo/api/{version}/user/signin")
+    Call<User> userSignIn(@Path("version") int version
+            , @Body SignInForm request
+    );
+
+    @POST("/wheretogo/api/{version}/user/{idx}")
+    Call<User> getUserInfo(@Path("version") int version
+            , @Path("idx") int idx);
 
 
 }

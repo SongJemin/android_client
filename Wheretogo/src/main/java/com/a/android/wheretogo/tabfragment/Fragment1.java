@@ -49,11 +49,19 @@ public class Fragment1 extends Fragment {
         TextView nameView = (TextView) v.findViewById (R.id.name_view);
         TextView titleView = (TextView) v.findViewById (R.id.keyword_view);
         TextView distanceView = (TextView) v.findViewById (R.id.distance_view);
+        TextView phoneView = (TextView) v.findViewById (R.id.phone_view);
+        TextView addressView = (TextView) v.findViewById (R.id.address_view);
+        String phone = getArguments().getString("phone"); // 전달한 key 값
+        String newAddress = getArguments().getString("newAddress"); // 전달한 key 값
+
+
 
         //텍스트뷰에 데이터를 붙임
         nameView.setText(title);
         titleView.setText(result);
         distanceView.setText(distance_string+"m");
+        phoneView.setText(phone);
+        addressView.setText(newAddress);
         //placeUrlView.setText(place_url);
 
 

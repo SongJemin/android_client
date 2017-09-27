@@ -67,7 +67,6 @@ public class MainActivity extends AppCompatActivity
     private HashMap<Integer, Item3> mTagItemMap3 = new HashMap<Integer, Item3>();
     private HashMap<Integer, Item5> mTagItemMap8 = new HashMap<Integer, Item5>();
     private MapView myMapView;
-    private BackPressCloseHandler backPressCloseHandler;
     private net.daum.android.map.MapView mapview;
     LocationManager locationManager;
     //나의 위도 경도 고도
@@ -88,7 +87,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        backPressCloseHandler = new BackPressCloseHandler(this);
+
         // myMapView.setCalloutBalloonAdapter(new CustomCalloutBalloonAdapter());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -313,18 +312,7 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            //super.onBackPressed();
-            backPressCloseHandler.onBackPressed();
-        }
 
-
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

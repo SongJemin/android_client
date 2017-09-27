@@ -3,26 +3,27 @@ package com.a.android.wheretogo;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.text.method.PasswordTransformationMethod;
 import android.text.method.SingleLineTransformationMethod;
 import android.text.style.UnderlineSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.Volley;
+import com.a.android.wheretogo.retrofit.ApiClient;
+import com.a.android.wheretogo.retrofit.SignInForm;
+import com.a.android.wheretogo.retrofit.User;
 
-import org.json.JSONObject;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class LoginActivity extends AppCompatActivity {
-
+    private EditText emailText;
     private boolean flag = false;
 
     @Override
@@ -32,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         //final String jem="https://apis.daum.net/local/geo/addr2coord?apikey=f2f1bfbda1aff34eefe71a20907a75ad&q=제주 특별자치도 제주시 첨단로 242&output=json";
 
         TextView markView = (TextView) findViewById(R.id.markView);
-        final EditText emailText = (EditText) findViewById(R.id.emailText);
+        emailText = (EditText) findViewById(R.id.emailText);
         final EditText passwordText = (EditText) findViewById(R.id.passwordText);
         final Button loginButton = (Button) findViewById(R.id.loginButton);
         Button realPasswdViewBtn = (Button) findViewById(R.id.real_passwd_view);
@@ -69,35 +70,41 @@ public class LoginActivity extends AppCompatActivity {
                 final String emailID = emailText.getText().toString();
                 final String userPassword = passwordText.getText().toString();
 
-                Response.Listener<String> responseListener = new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonResponse = new JSONObject(response);
-                            boolean success = jsonResponse.getBoolean("success");
-                            if (success) {
-                                String userID = jsonResponse.getString("userID");
-                                String userPassword = jsonResponse.getString("userPassword");
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                intent.putExtra("userID", userID);
-                                intent.putExtra("userPassword", userPassword);
-                                LoginActivity.this.startActivity(intent);
-                            } else {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                                builder.setMessage("로그인에 실패하였습니다.")
-                                        .setNegativeButton("다시 시도", null)
-                                        .create()
-                                        .show();
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                };
 
-                LoginRequest loginRequest = new LoginRequest(emailID, userPassword, responseListener);
-                RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
-                queue.add(loginRequest);
+                SignInForm signInForm = new SignInForm(emailID,userPassword);
+                Log.e("LOG",emailID);
+
+                Log.e("LOG","aaaa2");
+                Log.e("LOG",signInForm.getEmail());
+                Log.e("LOG",signInForm.getPasswd());
+                Log.e("LOG","aaaa2");
+
+                ApiClient.getInstance()
+                        .getApiService()
+                        .userSignIn(1,signInForm)
+                        .enqueue(new Callback<User>() {
+                            @Override
+                            public void onResponse(Call<User> call, retrofit2.Response<User> response) {
+                                Log.e("LOG","Response");
+                                if(response.body()!=null){
+                                    Log.e("LOG","Login Success");
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    LoginActivity.this.startActivity(intent);
+
+                                }else{
+                                    Log.e("LOG","ERROR" );
+
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<User> call, Throwable t) {
+                                Log.e("LOG","Fail");
+
+                            }
+                        });
+
+
             }
         });
 

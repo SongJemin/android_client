@@ -14,7 +14,7 @@
         android:layout_height="20dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="20dp"
-        android:src="@drawable/shop"
+        android:src="@drawable/home_image"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
