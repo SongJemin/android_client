@@ -49,8 +49,5 @@ public class PasswdCheckActivity extends AppCompatActivity {
                 startActivity(okIntent);
             }
         });
-
-
-
     }
 }

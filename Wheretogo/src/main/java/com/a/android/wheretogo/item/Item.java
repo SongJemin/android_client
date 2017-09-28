@@ -9,7 +9,6 @@ public class Item {
     public String imageUrl;
     public String address;
     public String newAddress;
-  //  public String zipcode;
     public String phone;
     public double longitude;
     public double latitude;
@@ -17,6 +16,4 @@ public class Item {
     public String category;
     public String id;
     public String place_url;
-   // public String direction;
-   // public String addressBCode;
 }

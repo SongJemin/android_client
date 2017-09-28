@@ -1,29 +1,18 @@
 package com.a.android.wheretogo;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -68,7 +57,6 @@ public class MainActivity extends AppCompatActivity
     private HashMap<Integer, Item5> mTagItemMap8 = new HashMap<Integer, Item5>();
     private MapView myMapView;
     private net.daum.android.map.MapView mapview;
-    LocationManager locationManager;
 
     double mLatitude;  //위도
     double mLongitude; //경도
@@ -86,8 +74,6 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -120,36 +106,7 @@ public class MainActivity extends AppCompatActivity
         });
 
 
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            //GPS 설정화면으로 이동
-            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-            intent.addCategory(Intent.CATEGORY_DEFAULT);
-            startActivity(intent);
-            finish();
-        }
-
-        //마시멜로 이상이면 권한 요청하기
-        if (Build.VERSION.SDK_INT >= 23) {
-            //권한이 없는 경우
-            if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
-                    ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-            }
-            //권한이 있는 경우
-            else {
-                requestMyLocation();
-            }
-        }
-        //마시멜로 아래
-        else {
-            requestMyLocation();
-        }
-
         myMapView = new MapView(this);
-
-
         myMapView.setDaumMapApiKey(DAUM_API_KEY);
 
         ViewGroup viewGroup = (ViewGroup) findViewById(R.id.map_view);
@@ -190,9 +147,7 @@ public class MainActivity extends AppCompatActivity
                     public void onFail() {
                         showToast("API Fail");
                     }
-
                 });
-
             }
         });
 
@@ -242,67 +197,6 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    //권한 요청후 응답 콜백
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        //ACCESS_COARSE_LOCATION 권한
-        if (requestCode == 1) {
-            //권한받음
-            Log.v("asdf", "권한받음");
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                requestMyLocation();
-            }
-            //권한못받음
-            else {
-                Toast.makeText(this, "권한없음", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-        }
-    }
-
-    //위치정보 구하기 리스너
-    LocationListener locationListener = new LocationListener() {
-
-        @Override
-
-        public void onLocationChanged(Location location) {
-            if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
-                    ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                return;
-            }
-            //나의 위치를 한번만 가져오기 위해
-            locationManager.removeUpdates(locationListener);
-            //위도 경도
-            mLatitude = location.getLatitude();   //위도
-            mLongitude = location.getLongitude(); //경도
-        }
-
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-            Log.d("gps", "onStatusChanged");
-        }
-
-        @Override
-        public void onProviderEnabled(String provider) {
-        }
-
-        @Override
-        public void onProviderDisabled(String provider) {
-        }
-    };
-
-    //나의 위치 요청
-    public void requestMyLocation() {
-        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        //요청
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-    }
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -310,7 +204,6 @@ public class MainActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main2, menu);
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(final String query) {
@@ -369,24 +262,19 @@ public class MainActivity extends AppCompatActivity
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
+
     @Override
-
-
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_nearborhood_store) {
 
-            // Handle the camera action
-
-
         } else if (id == R.id.nav_dev_setting) {
             Intent settingIntent = new Intent(MainActivity.this,SettingActivity.class);
             MainActivity.this.startActivity(settingIntent);
 
         } else if (id == R.id.nav_id_logout) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -405,24 +293,19 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onMapViewInitialized(MapView mapView) {
-
         // Move
         MapPoint myPoint = MapPoint.mapPointWithGeoCoord(mLatitude, mLongitude);
         mapView.setMapCenterPoint(myPoint, true);
         mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeadingWithoutMapMoving);
-
     }
 
 
     @Override
     public void onPOIItemSelected(MapView mapView, MapPOIItem marker) {
 
-
         RelativeLayout container = (RelativeLayout) findViewById(R.id.multi);
-
         //레이아웃 인플레이션을 통해 부분 화면으로 추가한다
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
     }
 
 
@@ -478,7 +361,6 @@ public class MainActivity extends AppCompatActivity
             poiItem3.setSelectedMarkerType(MapPOIItem.MarkerType.CustomImage);
             poiItem3.setCustomImageAutoscale(false);
             poiItem3.setCustomImageAnchor(0.5f, 1.0f);
-
             myMapView.addPOIItem(poiItem3);
             //count = poiItem3.getTag()+30;
             mTagItemMap3.put(poiItem3.getTag(), item3);
@@ -509,7 +391,6 @@ public class MainActivity extends AppCompatActivity
             poiItem.setSelectedMarkerType(MapPOIItem.MarkerType.CustomImage);
             poiItem.setCustomImageAutoscale(false);
             poiItem.setCustomImageAnchor(0.5f, 1.0f);
-
             myMapView.addPOIItem(poiItem);
             mTagItemMap8.put(poiItem.getTag(), item5);
         }
@@ -554,7 +435,6 @@ public class MainActivity extends AppCompatActivity
             popIntent.putExtra("newAddress",item.newAddress);
             popIntent.putExtra("distance",item.distance);
             popIntent.putExtra("place_url",item.place_url);
-
            MainActivity.this.startActivity(popIntent);
 
 
@@ -568,7 +448,6 @@ public class MainActivity extends AppCompatActivity
             popIntent.putExtra("newAddress",item2.newAddress);
             popIntent.putExtra("distance",item2.distance);
             popIntent.putExtra("place_url",item2.place_url);
-
             MainActivity.this.startActivity(popIntent);
 
 
@@ -582,7 +461,6 @@ public class MainActivity extends AppCompatActivity
             popIntent.putExtra("newAddress",item3.newAddress);
             popIntent.putExtra("distance",item3.distance);
             popIntent.putExtra("place_url",item3.place_url);
-
             MainActivity.this.startActivity(popIntent);
 
 
@@ -600,7 +478,6 @@ public class MainActivity extends AppCompatActivity
             MainActivity.this.startActivity(popIntent);
 
         }
-
 
         snackbar=Snackbar.make(mapView,sb.toString(),Snackbar.LENGTH_INDEFINITE).setAction("YES", new View.OnClickListener()
                 {

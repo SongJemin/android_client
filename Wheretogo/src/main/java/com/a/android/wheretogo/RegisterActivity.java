@@ -11,11 +11,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.a.android.wheretogo.retrofit.ApiClient;
 import com.a.android.wheretogo.retrofit.ApiMessage;
 import com.a.android.wheretogo.retrofit.SignUpForm;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 
@@ -61,7 +59,6 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //TODO: set visible of EditText
                 if (!flag) {
-
                     passwordConfirmText.setTransformationMethod(SingleLineTransformationMethod.getInstance());
                     flag = !flag;
                 } else {
@@ -95,10 +92,8 @@ public class RegisterActivity extends AppCompatActivity {
                                     Log.e("LOG","Success");
                                     Intent intent = new Intent(RegisterActivity.this, StartActivity.class);
                                     RegisterActivity.this.startActivity(intent);
-
                                 }else{
                                     Log.e("LOG","ERROR :" + response.body().getCode());
-
                                 }
                             }
 
@@ -108,8 +103,6 @@ public class RegisterActivity extends AppCompatActivity {
 
                             }
                         });
-
-
             }
         });
     }

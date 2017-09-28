@@ -52,7 +52,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //TODO: set visible of EditText
                 if (!flag) {
-
                     passwordText.setTransformationMethod(SingleLineTransformationMethod.getInstance());
                     flag = !flag;
                 } else {
@@ -68,7 +67,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 final String emailID = emailText.getText().toString();
                 final String userPassword = passwordText.getText().toString();
-
 
                 SignInForm signInForm = new SignInForm(emailID,userPassword);
 
@@ -93,11 +91,8 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onFailure(Call<User> call, Throwable t) {
                                 Log.e("LOG","Fail");
-
                             }
                         });
-
-
             }
         });
 

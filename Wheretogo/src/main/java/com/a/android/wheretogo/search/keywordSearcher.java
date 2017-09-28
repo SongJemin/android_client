@@ -21,37 +21,9 @@ import java.util.Scanner;
 
 public class keywordSearcher {
 
-    // http://dna.daum.net/apis/local
-	//public static final String DAUM_MAPS_LOCAL_KEYWORD_SEARCH_API_FORMAT = "https://dapi.kakao.com/v2/local/search/keyword.json?query=%s&location=%f,%f&radius=%d&page=%d&apikey=%s";
-	//public static final String DAUM_MAPS_LOCAL_KEYWORD_SEARCH_API_FORMAT = "https://apis.daum.net/local/v1/search/keyword.json?query=%s&location=%f,%f&radius=%d&page=%d&apikey=%s";
 	public static final String KAKAO_LOCAL_KEYWORD_SEARCH_API_FORMAT = "https://dapi.kakao.com/v2/local/search/keyword.json?query=%s&category_group_code=%s&x=%f&y=%f&radius=%d&page=%d";
-	//public static final String DAUM_MAPS_LOCAL_CATEGORY_SEARCH_API_FORMAT = "https://apis.daum.net/local/v1/search/category.json?code=%s&location=%f,%f&radius=%d&page=%d&apikey=%s";
 	public static final String KAKAO_LOCAL_CATEGORY_SEARCH_API_FORMAT = "https://dapi.kakao.com/v2/local/search/category.json?category_group_code=%s&x=%f&y=%f&radius=%d&page=%d";
 
-	//String postParameters= "?x=" + lon + "&y=" + lat;
-
-	/** category codes
-	MT1 대형마트
-	CS2 편의점
-	PS3 어린이집, 유치원
-	SC4 학교
-	AC5 학원
-	PK6 주차장
-	OL7 주유소, 충전소
-	SW8 지하철역
-	BK9 은행
-	CT1 문화시설
-	AG2 중개업소
-	PO3 공공기관
-	AT4 관광명소
-	AD5 숙박
-	FD6 음식점
-	CE7 카페
-	HP8 병원
-	PM9 약국
-	 */
-
-	public static int page2=1;
 	private static final String HEADER_NAME_X_APPID = "x-appid";
 	private static final String HEADER_NAME_X_PLATFORM = "x-platform";
 	private static final String HEADER_VALUE_X_PLATFORM_ANDROID = "android";
@@ -68,7 +40,6 @@ public class keywordSearcher {
 			header.put(HEADER_NAME_X_APPID, appId);
 			header.put(HEADER_NAME_X_PLATFORM, HEADER_VALUE_X_PLATFORM_ANDROID);
 
-			// String json4 = fetchData("https://dapi.kakao.com/v2/local/search/category.json?category_group_code=FD6&x=127.062528&y=37.656441&radius=500&page=4",header);
 			String json8 = fetchData(url,header);
 
 			List<Item5> itemList8 = parse8(json8);
@@ -96,11 +67,8 @@ public class keywordSearcher {
 		}
 
 			String url = buildKeywordSearchApiUrlString(query, category_group_code, latitude, longitude, radius, page);
-
 			searchTask = new SearchTask();
 			searchTask.execute(url);
-
-
     }
 	
 
@@ -148,26 +116,20 @@ public class keywordSearcher {
 					List<Item5> itemList8 = new ArrayList<Item5>();
 					try {
 						JSONObject reader = new JSONObject(jsonString);
-						//JSONObject documents = reader.getJSONObject("meta");
 						JSONArray objects = reader.getJSONArray("documents");
 						for (int i = 0; i < objects.length(); i++) {
 							JSONObject object = objects.getJSONObject(i);
 							Item5 item5 = new Item5();
 							item5.title = object.getString("place_name");
-							//item.imageUrl = object.getString("place_url");
 							item5.address = object.getString("address_name");
 							item5.newAddress = object.getString("road_address_name");
-							//item.zipcode = object.getString("category_group_code");
 							item5.phone = object.getString("phone");
 							item5.category = object.getString("category_name");
 							item5.latitude = object.getDouble("y");
 							item5.longitude = object.getDouble("x");
-				//item5.distance = object.getDouble("distance");
-				//item.direction = object.getString("direction");
 				item5.id = object.getString("id");
 
 				item5.place_url = object.getString("place_url");
-				//item.addressBCode = object.getString("addressBCode");
 				itemList8.add(item5);
 			}
 		} catch (Exception e) {

@@ -23,37 +23,9 @@ import java.util.Scanner;
 
 public class CategorySearcher {
 
-    // http://dna.daum.net/apis/local
-	//public static final String DAUM_MAPS_LOCAL_KEYWORD_SEARCH_API_FORMAT = "https://dapi.kakao.com/v2/local/search/keyword.json?query=%s&location=%f,%f&radius=%d&page=%d&apikey=%s";
-	//public static final String DAUM_MAPS_LOCAL_KEYWORD_SEARCH_API_FORMAT = "https://apis.daum.net/local/v1/search/keyword.json?query=%s&location=%f,%f&radius=%d&page=%d&apikey=%s";
 	public static final String KAKAO_LOCAL_KEYWORD_SEARCH_API_FORMAT = "https://dapi.kakao.com/v2/local/search/keyword.json?query=%s&category_group_code=%s&x=%f&y=%f&radius=%d&page=%d";
-	//public static final String DAUM_MAPS_LOCAL_CATEGORY_SEARCH_API_FORMAT = "https://apis.daum.net/local/v1/search/category.json?code=%s&location=%f,%f&radius=%d&page=%d&apikey=%s";
 	public static final String KAKAO_LOCAL_CATEGORY_SEARCH_API_FORMAT = "https://dapi.kakao.com/v2/local/search/category.json?category_group_code=%s&x=%f&y=%f&radius=%d&page=%d";
 
-	//String postParameters= "?x=" + lon + "&y=" + lat;
-
-	/** category codes
-	MT1 대형마트
-	CS2 편의점
-	PS3 어린이집, 유치원
-	SC4 학교
-	AC5 학원
-	PK6 주차장
-	OL7 주유소, 충전소
-	SW8 지하철역
-	BK9 은행
-	CT1 문화시설
-	AG2 중개업소
-	PO3 공공기관
-	AT4 관광명소
-	AD5 숙박
-	FD6 음식점
-	CE7 카페
-	HP8 병원
-	PM9 약국
-	 */
-
-	public static int page2=1;
 	private static final String HEADER_NAME_X_APPID = "x-appid";
 	private static final String HEADER_NAME_X_PLATFORM = "x-platform";
 	private static final String HEADER_VALUE_X_PLATFORM_ANDROID = "android";
@@ -69,10 +41,7 @@ public class CategorySearcher {
 			Map<String, String> header = new HashMap<String, String>();
 			header.put(HEADER_NAME_X_APPID, appId);
 			header.put(HEADER_NAME_X_PLATFORM, HEADER_VALUE_X_PLATFORM_ANDROID);
-			//String json = fetchData("https://dapi.kakao.com/v2/local/search/category.json?category_group_code=FD6&x=127.062528&y=37.656441&radius=500"+"&page=1",header);
 			String json = fetchData(url, header);
-
-			//String json2 = fetchData("https://dapi.kakao.com/v2/local/search/category.json?category_group_code=FD6&x=127.062528&y=37.656441&radius=500&page=2",header);
 
 			url = url.replace("page=1","page=2");
 			String json2 = fetchData(url, header);
@@ -80,10 +49,8 @@ public class CategorySearcher {
 			url = url.replace("page=2","page=3");
 			String json3 = fetchData(url, header);
 
-			// String json3 = fetchData("https://dapi.kakao.com/v2/local/search/category.json?category_group_code=FD6&x=127.062528&y=37.656441&radius=500&page=3",header);
 			url = url.replace("page=3","page=4");
 			String json4 = fetchData(url,header);
-			// String json4 = fetchData("https://dapi.kakao.com/v2/local/search/category.json?category_group_code=FD6&x=127.062528&y=37.656441&radius=500&page=4",header);
 
 			List<Item> itemList = parse(json);
 			List<Item2> itemList5 = parse2(json2);
@@ -177,11 +144,9 @@ public class CategorySearcher {
 							item.latitude = object.getDouble("y");
 							item.longitude = object.getDouble("x");
 				item.distance = object.getDouble("distance");
-				//item.direction = object.getString("direction");
 				item.id = object.getString("id");
 
 				item.place_url = object.getString("place_url");
-				//item.addressBCode = object.getString("addressBCode");
 				itemList.add(item);
 			}
 		} catch (Exception e) {
@@ -195,7 +160,6 @@ public class CategorySearcher {
 		List<Item2> itemList = new ArrayList<Item2>();
 		try {
 			JSONObject reader = new JSONObject(jsonString);
-			//JSONObject documents = reader.getJSONObject("meta");
 			JSONArray objects = reader.getJSONArray("documents");
 			for (int j = 0; j < objects.length(); j++) {
 				JSONObject object = objects.getJSONObject(j);
@@ -203,16 +167,13 @@ public class CategorySearcher {
 				item2.title = object.getString("place_name");
 				item2.address = object.getString("address_name");
 				item2.newAddress = object.getString("road_address_name");
-				//item.zipcode = object.getString("category_group_code");
 				item2.phone = object.getString("phone");
 				item2.category = object.getString("category_name");
 				item2.latitude = object.getDouble("y");
 				item2.longitude = object.getDouble("x");
 				item2.distance = object.getDouble("distance");
-				//item.direction = object.getString("direction");
 				item2.id = object.getString("id");
 				item2.place_url = object.getString("place_url");
-				//item.addressBCode = object.getString("addressBCode");
 				itemList.add(item2);
 			}
 		} catch (Exception e) {
@@ -227,7 +188,6 @@ public class CategorySearcher {
 		List<Item3> itemList = new ArrayList<Item3>();
 		try {
 			JSONObject reader = new JSONObject(jsonString);
-			//JSONObject documents = reader.getJSONObject("meta");
 			JSONArray objects = reader.getJSONArray("documents");
 			for (int k= 0; k < objects.length(); k++) {
 				JSONObject object = objects.getJSONObject(k);
@@ -235,16 +195,13 @@ public class CategorySearcher {
 				item3.title = object.getString("place_name");
 				item3.address = object.getString("address_name");
 				item3.newAddress = object.getString("road_address_name");
-				//item.zipcode = object.getString("category_group_code");
 				item3.phone = object.getString("phone");
 				item3.category = object.getString("category_name");
 				item3.latitude = object.getDouble("y");
 				item3.longitude = object.getDouble("x");
 				item3.distance = object.getDouble("distance");
-				//item.direction = object.getString("direction");
 				item3.id = object.getString("id");
 				item3.place_url = object.getString("place_url");
-				//item.addressBCode = object.getString("addressBCode");
 				itemList.add(item3);
 			}
 		} catch (Exception e) {
@@ -258,7 +215,6 @@ public class CategorySearcher {
 		List<Item> itemList = new ArrayList<Item>();
 		try {
 			JSONObject reader = new JSONObject(jsonString);
-			//JSONObject documents = reader.getJSONObject("meta");
 			JSONArray objects = reader.getJSONArray("documents");
 			for (int a= 0; a < objects.length(); a++) {
 				JSONObject object = objects.getJSONObject(a);
@@ -266,16 +222,13 @@ public class CategorySearcher {
 				item4.title = object.getString("place_name");
 				item4.address = object.getString("address_name");
 				item4.newAddress = object.getString("road_address_name");
-				//item.zipcode = object.getString("category_group_code");
 				item4.phone = object.getString("phone");
 				item4.category = object.getString("category_name");
 				item4.latitude = object.getDouble("y");
 				item4.longitude = object.getDouble("x");
 				item4.distance = object.getDouble("distance");
-				//item.direction = object.getString("direction");
 				item4.id = object.getString("id");
 				item4.place_url = object.getString("place_url");
-				//item.addressBCode = object.getString("addressBCode");
 				itemList.add(item4);
 			}
 		} catch (Exception e) {
