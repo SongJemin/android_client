@@ -275,6 +275,8 @@ public class MainActivity extends AppCompatActivity
             MainActivity.this.startActivity(settingIntent);
 
         } else if (id == R.id.nav_id_logout) {
+            Intent backIntent = new Intent(MainActivity.this, StartActivity.class);
+            MainActivity.this.startActivity(backIntent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

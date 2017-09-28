@@ -3,6 +3,7 @@ package com.a.android.wheretogo;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.text.method.PasswordTransformationMethod;
@@ -84,7 +85,11 @@ public class LoginActivity extends AppCompatActivity {
 
                                 }else{
                                     Log.e("LOG","ERROR" );
-
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                                    builder.setMessage("로그인에 실패하였습니다.")
+                                            .setNegativeButton("다시 시도", null)
+                                            .create()
+                                            .show();
                                 }
                             }
 

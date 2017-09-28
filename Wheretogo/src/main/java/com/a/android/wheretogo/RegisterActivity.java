@@ -1,8 +1,10 @@
 package com.a.android.wheretogo;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.PasswordTransformationMethod;
 import android.text.method.SingleLineTransformationMethod;
@@ -11,9 +13,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import com.a.android.wheretogo.retrofit.ApiClient;
 import com.a.android.wheretogo.retrofit.ApiMessage;
 import com.a.android.wheretogo.retrofit.SignUpForm;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 
@@ -90,8 +94,17 @@ public class RegisterActivity extends AppCompatActivity {
                                 Log.e("LOG","Response");
                                 if(response.body().getCode()==1){
                                     Log.e("LOG","Success");
-                                    Intent intent = new Intent(RegisterActivity.this, StartActivity.class);
-                                    RegisterActivity.this.startActivity(intent);
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                                    builder.setMessage("회원가입 성공")
+                                            .setPositiveButton("확인",
+                                            new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    Intent intent = new Intent(RegisterActivity.this, StartActivity.class);
+                                                    RegisterActivity.this.startActivity(intent);
+                                                }
+                                            })
+                                            .create()
+                                            .show();
                                 }else{
                                     Log.e("LOG","ERROR :" + response.body().getCode());
                                 }
