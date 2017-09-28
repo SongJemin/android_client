@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity
     private MapView myMapView;
     private net.daum.android.map.MapView mapview;
     LocationManager locationManager;
-    //나의 위도 경도 고도
+
     double mLatitude;  //위도
     double mLongitude; //경도
     public double currentLat;
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity
     int count;
     private boolean flag = true;
     int radius = 500; // 중심 좌표부터의 반경거리. 특정 지역을 중심으로 검색하려고 할 경우 사용. meter 단위 (0 ~ 10000)
-    int page = 1; // 페이지 번호 (1 ~ 3). 한페이지에 15개
+    int page = 1;
     CategorySearcher categorySearcher;
     Snackbar mSnackBar;
     @Override
@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
 
-        // myMapView.setCalloutBalloonAdapter(new CustomCalloutBalloonAdapter());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -167,11 +166,7 @@ public class MainActivity extends AppCompatActivity
                 Snackbar.make(view,"Hi! I’m Snackbar!",Snackbar.LENGTH_INDEFINITE).show();
                 flag = true;
                 myMapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeadingWithoutMapMoving);
-                Log.v("asdf", "위치lat=" + currentLat);
-                Log.v("asdf", "위치lon=" + currentLon);
-                //requestMyLocation();
-                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                //.setAction("Action", null).show();
+
             }
         });
 
@@ -209,9 +204,7 @@ public class MainActivity extends AppCompatActivity
 
         MapPoint.GeoCoordinate mapPointGeo = currentLocation.getMapPointGeoCoord();
         currentLat = mapPointGeo.latitude;
-        Log.v("asdf", "on현재lat=" + currentLat);
         currentLon = mapPointGeo.longitude;
-        Log.v("asdf", "on현재lon=" + currentLon);
 
         if (flag) {
             MapPoint centerPoint = MapPoint.mapPointWithGeoCoord(currentLat, currentLon);
@@ -281,10 +274,7 @@ public class MainActivity extends AppCompatActivity
             locationManager.removeUpdates(locationListener);
             //위도 경도
             mLatitude = location.getLatitude();   //위도
-            Log.v("asdf", "기기자체lat=" + mLatitude);
             mLongitude = location.getLongitude(); //경도
-            Log.v("asdf", "기기자체lon=" + mLongitude);
-
         }
 
         @Override
@@ -326,7 +316,6 @@ public class MainActivity extends AppCompatActivity
             public boolean onQueryTextSubmit(final String query) {
                 hideKeyboard();
                 if (query == null || query.length() == 0) {  //지금 이 기능이 안됨
-                    Log.v("Asdf", "검색글자오류" + query);
                     return true;
                 }
                 MapPoint.GeoCoordinate geoCoordinate = myMapView.getMapCenterPoint().getMapPointGeoCoord();
@@ -353,7 +342,6 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public boolean onQueryTextChange(String s) {
-                Log.v("Asdf", "검색할 글자 입력");
                 return false;
             }
 
@@ -434,7 +422,6 @@ public class MainActivity extends AppCompatActivity
 
         //레이아웃 인플레이션을 통해 부분 화면으로 추가한다
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        //inflater.inflate(R.layout.sub_layout, container, true);
 
     }
 
@@ -454,10 +441,8 @@ public class MainActivity extends AppCompatActivity
             poiItem.setMarkerType(MapPOIItem.MarkerType.CustomImage);
             poiItem.setCustomImageResourceId(R.drawable.green_circle);
             poiItem.setSelectedMarkerType(MapPOIItem.MarkerType.CustomImage);
-            //poiItem.setCustomSelectedImageResourceId(R.drawable.map_pin_red);
             poiItem.setCustomImageAutoscale(false);
             poiItem.setCustomImageAnchor(0.5f, 1.0f);
-            //count = poiItem.getTag();
             myMapView.addPOIItem(poiItem);
             mTagItemMap.put(poiItem.getTag(), item);
         }
@@ -474,10 +459,8 @@ public class MainActivity extends AppCompatActivity
             poiItem2.setMarkerType(MapPOIItem.MarkerType.CustomImage);
             poiItem2.setCustomImageResourceId(R.drawable.green_circle);
             poiItem2.setSelectedMarkerType(MapPOIItem.MarkerType.CustomImage);
-            //poiItem.setCustomSelectedImageResourceId(R.drawable.map_pin_red);
             poiItem2.setCustomImageAutoscale(false);
             poiItem2.setCustomImageAnchor(0.5f, 1.0f);
-            //count = poiItem2.getTag()+15;
             myMapView.addPOIItem(poiItem2);
             mTagItemMap2.put(poiItem2.getTag(), item2);
         }
@@ -493,7 +476,6 @@ public class MainActivity extends AppCompatActivity
             poiItem3.setMarkerType(MapPOIItem.MarkerType.CustomImage);
             poiItem3.setCustomImageResourceId(R.drawable.green_circle);
             poiItem3.setSelectedMarkerType(MapPOIItem.MarkerType.CustomImage);
-            //poiItem.setCustomSelectedImageResourceId(R.drawable.map_pin_red);
             poiItem3.setCustomImageAutoscale(false);
             poiItem3.setCustomImageAnchor(0.5f, 1.0f);
 
@@ -525,7 +507,6 @@ public class MainActivity extends AppCompatActivity
             poiItem.setMarkerType(MapPOIItem.MarkerType.CustomImage);
             poiItem.setCustomImageResourceId(R.drawable.green_circle);
             poiItem.setSelectedMarkerType(MapPOIItem.MarkerType.CustomImage);
-            //poiItem.setCustomSelectedImageResourceId(R.drawable.map_pin_red);
             poiItem.setCustomImageAutoscale(false);
             poiItem.setCustomImageAnchor(0.5f, 1.0f);
 
@@ -564,7 +545,6 @@ public class MainActivity extends AppCompatActivity
         Item5 item5 = mTagItemMap8.get(mapPOIItem.getTag());
 
         StringBuilder sb = new StringBuilder();
-        //ImageSpan is=new ImageSpan(this,R.drawable.green_circle);
         if(item.title==mapPOIItem.getItemName())
         {
             Intent popIntent = new Intent(MainActivity.this,PopActivity.class);
@@ -634,7 +614,6 @@ public class MainActivity extends AppCompatActivity
         snackView.setBackgroundColor(Color.parseColor("#FFFFFF"));
         snackbar.show();
 
-       //Toast.makeText(this, sb.toString(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

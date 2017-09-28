@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -15,11 +14,6 @@ import com.a.android.wheretogo.retrofit.ApiClient;
 
 public class StartActivity extends AppCompatActivity {
 
-   // @Override
-  //  protected  void attachBaseContext(Context newBase) {
-
-        //super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
-  //  }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +21,6 @@ public class StartActivity extends AppCompatActivity {
 
 
         super.onCreate(savedInstanceState);
-        Log.v("Asdfadsg","start");
         setContentView(R.layout.activity_start);
 
         ImageView image=new ImageView(this);
@@ -56,8 +49,6 @@ public class StartActivity extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                //Snackbar snackbar;
-                //Snackbar.make(view,"Hi! I’m Snackbar!",Snackbar.LENGTH_INDEFINITE).show();
                 Intent registerIntent = new Intent(StartActivity.this,RegisterActivity.class);
                 StartActivity.this.startActivity(registerIntent);
             }

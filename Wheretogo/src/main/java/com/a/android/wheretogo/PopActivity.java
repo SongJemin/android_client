@@ -21,7 +21,6 @@ public class PopActivity extends AppCompatActivity implements View.OnClickListen
 
 
     private final int FRAGMENT1 = 1;
-    private final int FRAGMENT2 = 2;
     public String category;
     public String title;
     public Double distance;

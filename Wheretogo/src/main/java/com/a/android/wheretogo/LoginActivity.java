@@ -30,7 +30,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        //final String jem="https://apis.daum.net/local/geo/addr2coord?apikey=f2f1bfbda1aff34eefe71a20907a75ad&q=제주 특별자치도 제주시 첨단로 242&output=json";
 
         TextView markView = (TextView) findViewById(R.id.markView);
         emailText = (EditText) findViewById(R.id.emailText);
@@ -72,12 +71,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
                 SignInForm signInForm = new SignInForm(emailID,userPassword);
-                Log.e("LOG",emailID);
-
-                Log.e("LOG","aaaa2");
-                Log.e("LOG",signInForm.getEmail());
-                Log.e("LOG",signInForm.getPasswd());
-                Log.e("LOG","aaaa2");
 
                 ApiClient.getInstance()
                         .getApiService()
